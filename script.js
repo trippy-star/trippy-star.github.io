@@ -1,74 +1,43 @@
-const words = ["Dev", "YouTuber", "Hacker"];
-let currentIndex = 0;
-let currentChar = 0;
-let isDeleting = false;
-
-const descriptionElement = document.getElementById('description');
-
-function type() {
-    const currentWord = words[currentIndex];
-    let displayText = currentWord.substring(0, currentChar);
-    descriptionElement.textContent = displayText;
-
-    if (isDeleting) {
-        if (currentChar > 0) {
-            currentChar--;
-        } else {
-            isDeleting = false;
-            currentIndex = (currentIndex + 1) % words.length;
-        }
-    } else {
-        if (currentChar < currentWord.length) {
-            currentChar++;
-        } else {
-            isDeleting = true;
-            setTimeout(type, 1000);
-            return;
-        }
-    }
-
-    setTimeout(type, isDeleting ? 100 : 200);
-}
-
-document.addEventListener('mousemove', (e) => {
-    const trail = document.createElement('div');
-    trail.className = 'trail';
-    trail.style.left = `${e.pageX}px`;
-    trail.style.top = `${e.pageY}px`;
-    trail.style.width = '10px';
-    trail.style.height = '10px';
-    document.body.appendChild(trail);
-    setTimeout(() => {
-        document.body.removeChild(trail);
-    }, 500);
-});
-
-window.onload = type;
-
 const audioPlayer = document.getElementById('audio-player');
 const pausePlayButton = document.getElementById('pause-play-button');
+const volumeIcon = document.getElementById('volume-icon');
+const volumeFill = document.getElementById('volume-fill');
+const volumePercentage = document.getElementById('volume-percentage');
+let isFading = false;
+
+function updateVolumeDisplay() {
+    const volume = audioPlayer.volume * 100;
+    volumeFill.style.height = `${volume}%`;
+    volumePercentage.textContent = `${Math.round(volume)}%`;
+}
+
+volumeIcon.addEventListener('click', () => {
+    audioPlayer.volume = audioPlayer.volume === 0 ? 1 : 0;
+    updateVolumeDisplay();
+});
 
 pausePlayButton.addEventListener('click', () => {
-    if (audioPlayer.paused) {
-        audioPlayer.play().then(() => {
+    if (!isFading) {
+        isFading = true;
+        if (audioPlayer.paused) {
+            audioPlayer.play();
             pausePlayButton.textContent = '||'; // Change icon to pause
-        }).catch(error => {
-            console.error('Error playing audio:', error);
-        });
-    } else {
-        audioPlayer.pause();
-        pausePlayButton.textContent = '►'; // Change icon to play
+        } else {
+            audioPlayer.pause();
+            pausePlayButton.textContent = '►'; // Change icon to play
+        }
+        isFading = false;
     }
 });
 
-// Start audio automatically with a slight delay for browser compatibility
-window.addEventListener('load', () => {
-    setTimeout(() => {
-        audioPlayer.volume = 1;
-        audioPlayer.play().then(() => {
-            pausePlayButton.textContent = '||'; // Set the button to "pause" if playing on load
-        }).catch(error => {
-            console.log('Audio playback error:', error);
-        });
-    }, 100); // Short delay to handle initial page load
-});
+// Update volume display on load
+window.onload = () => {
+    audioPlayer.volume = 1;
+    updateVolumeDisplay();
+    audioPlayer.play().catch(error => {
+        console.log('Audio playback error:', error);
+    });
+};
+
+// Update volume display on volume change
+audioPlayer.addEventListener('volumechange', updateVolumeDisplay);
