@@ -47,46 +47,28 @@ window.onload = type;
 
 const audioPlayer = document.getElementById('audio-player');
 const pausePlayButton = document.getElementById('pause-play-button');
-let isFading = false;
 
-function fadeAudio(volume, duration) {
-    return new Promise((resolve) => {
-        let startVolume = audioPlayer.volume;
-        let step = (volume - startVolume) / (duration / 10);
-
-        function fade() {
-            startVolume += step;
-            if ((step > 0 && startVolume >= volume) || (step < 0 && startVolume <= volume)) {
-                audioPlayer.volume = volume;
-                resolve();
-            } else {
-                audioPlayer.volume = startVolume;
-                setTimeout(fade, 10);
-            }
-        }
-
-        fade();
-    });
-}
-
-pausePlayButton.addEventListener('click', async () => {
-    if (!isFading) {
-        isFading = true;
-        if (audioPlayer.paused) {
-            // Ensure audio is loaded before playing
-            if (audioPlayer.readyState >= 2) {
-                await fadeAudio(1, 1000);
-                audioPlayer.play();
-                pausePlayButton.textContent = '||';
-            } else {
-                audioPlayer.play();
-                pausePlayButton.textContent = '||';
-            }
-        } else {
-            await fadeAudio(0, 1000);
-            audioPlayer.pause();
-            pausePlayButton.textContent = '►';
-        }
-        isFading = false;
+pausePlayButton.addEventListener('click', () => {
+    if (audioPlayer.paused) {
+        audioPlayer.play().then(() => {
+            pausePlayButton.textContent = '||'; // Change icon to pause
+        }).catch(error => {
+            console.error('Error playing audio:', error);
+        });
+    } else {
+        audioPlayer.pause();
+        pausePlayButton.textContent = '►'; // Change icon to play
     }
+});
+
+// Start audio automatically with a slight delay for browser compatibility
+window.addEventListener('load', () => {
+    setTimeout(() => {
+        audioPlayer.volume = 1;
+        audioPlayer.play().then(() => {
+            pausePlayButton.textContent = '||'; // Set the button to "pause" if playing on load
+        }).catch(error => {
+            console.log('Audio playback error:', error);
+        });
+    }, 100); // Short delay to handle initial page load
 });
