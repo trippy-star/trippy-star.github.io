@@ -17,17 +17,22 @@
                 <img src="discord.png" alt="Discord Icon" class="discord-icon">
             </a>
         </div>
-        <div class="music-player">
-            <img src="https://i1.sndcdn.com/artworks-000640731220-n1lau4-t500x500.jpg" alt="6 Kiss Album Cover" class="album-cover">
-            <div class="track-info">
-                <div class="track-title">6 Kiss (Feat. Juice WRLD & YNW Melly)</div>
-                <div class="track-artists">Trippie Redd, Juice WRLD, YNW Melly</div>
+        <!-- Media Player -->
+        <div class="media-player">
+            <img src="https://i1.sndcdn.com/artworks-000640731220-n1lau4-t500x500.jpg" alt="Cover" class="cover-image">
+            <div class="media-controls">
+                <button id="pause-play-button">►</button>
+                <div class="volume-control">
+                    <img src="volume-icon.png" alt="Volume Icon" class="volume-icon" id="volume-icon">
+                    <div class="volume-bar">
+                        <div class="volume-fill" id="volume-fill"></div>
+                    </div>
+                    <div class="volume-percentage" id="volume-percentage">100%</div>
+                </div>
             </div>
-            <button id="pause-play-button" class="pause-play-button">||</button>
-            <audio id="audio-player" src="6kiss.mp3" autoplay loop></audio>
         </div>
     </div>
-    <audio id="background-music" src="background.mp3" autoplay loop></audio>
+    <audio id="audio-player" src="6kiss.mp3" autoplay loop></audio>
     <script src="script.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
     <script>
