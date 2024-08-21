@@ -74,6 +74,7 @@ body {
     background-color: transparent;
     font-family: 'VCR_OSD_MONO', sans-serif;
     margin-top: 30px;
+    border-radius: 15px; /* Rounded corners */
 }
 
 .album-cover {
@@ -81,6 +82,7 @@ body {
     height: 80px;
     margin-right: 15px;
     border: 2px solid white;
+    border-radius: 10px; /* Rounded corners for album cover */
 }
 
 .track-info {
@@ -106,6 +108,7 @@ body {
     font-size: 18px;
     cursor: pointer;
     outline: none;
+    border-radius: 5px; /* Rounded corners for button */
 }
 
 .pause-play-button:hover {
