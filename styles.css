@@ -1,3 +1,9 @@
+/* Import the VCR_OSD_MONO font */
+@font-face {
+    font-family: 'VCR_OSD_MONO';
+    src: url('VCR_OSD_MONO_1.001.ttf') format('truetype');
+}
+
 body {
     margin: 0;
     padding: 0;
@@ -7,7 +13,7 @@ body {
     height: 100vh;
     background: #121212;
     color: #ffffff;
-    font-family: 'VCR_OSD_MONO', sans-serif; /* Ensure the font is applied */
+    font-family: 'Arial', sans-serif;
     overflow: hidden;
 }
 
@@ -18,27 +24,6 @@ body {
     top: 0;
     left: 0;
     z-index: 0;
-}
-
-.visualizer {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 100px; /* Adjust height as needed */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 1;
-}
-
-.bar {
-    width: 10px;
-    height: 100%;
-    background: #ffffff;
-    margin: 0 2px;
-    transform-origin: bottom;
-    transition: transform 0.1s;
 }
 
 .container {
@@ -82,6 +67,57 @@ body {
     transform: scale(1.2);
 }
 
+.media-player {
+    display: flex;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.7);
+    border: 2px solid #ffffff;
+    border-radius: 10px;
+    padding: 10px;
+    margin-top: 20px;
+    position: relative;
+    width: 400px; /* Adjusted width for better fit */
+}
+
+.cover-image {
+    width: 100px;
+    height: 100px;
+    border-radius: 10px;
+    margin-right: 15px;
+}
+
+.media-controls {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+#pause-play-button {
+    font-family: 'VCR_OSD_MONO', sans-serif;
+    font-size: 24px;
+    background: none;
+    border: 2px solid #ffffff;
+    color: #ffffff;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.song-info {
+    color: #ffffff;
+}
+
+.song-title {
+    font-size: 16px;
+    margin: 0;
+}
+
+.song-artists {
+    font-size: 14px;
+    margin: 0;
+}
+
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -98,72 +134,4 @@ body {
     50% {
         border-color: orange;
     }
-}
-
-.trail {
-    position: absolute;
-    background: rgba(255, 255, 255, 0.7);
-    border-radius: 50%;
-    pointer-events: none;
-    animation: trail 0.5s linear infinite;
-}
-
-@keyframes trail {
-    from {
-        opacity: 1;
-        transform: scale(1);
-    }
-    to {
-        opacity: 0;
-        transform: scale(0.5);
-    }
-}
-
-/* Media Player Styles */
-.media-player {
-    display: flex;
-    align-items: center;
-    margin-top: 20px;
-    border: 2px solid white;
-    padding: 10px; /* Adjust padding to add space inside */
-    border-radius: 10px;
-    background: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
-    box-shadow: 0 0 15px rgba(255, 255, 255, 0.3); /* Enhanced shadow for better visibility */
-    max-width: 700px; /* Increased width */
-    width: 100%; /* Responsive width */
-}
-
-.cover-image {
-    width: 120px; /* Standard size */
-    height: 120px; /* Standard size */
-    border-radius: 10px;
-    margin-right: 20px;
-}
-
-.media-controls {
-    display: flex;
-    flex-direction: column; /* Stack controls vertically */
-    align-items: center;
-    position: relative;
-}
-
-#pause-play-button {
-    font-size: 2em; /* Larger button */
-    background: transparent;
-    border: 2px solid #ffffff;
-    color: #ffffff;
-    padding: 15px 30px; /* Larger padding */
-    border-radius: 10px;
-    cursor: pointer;
-    transition: background 0.3s, color 0.3s;
-}
-
-#pause-play-button:hover {
-    background: #ffffff;
-    color: #000000;
-}
-
-@font-face {
-    font-family: 'VCR_OSD_MONO';
-    src: url('VCR_OSD_MONO_1.001.ttf') format('truetype');
 }
