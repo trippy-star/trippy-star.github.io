@@ -44,3 +44,16 @@ document.addEventListener('mousemove', (e) => {
 });
 
 window.onload = type;
+
+const audioPlayer = document.getElementById('audio-player');
+const pausePlayButton = document.getElementById('pause-play-button');
+
+pausePlayButton.addEventListener('click', () => {
+    if (audioPlayer.paused) {
+        audioPlayer.play();
+        pausePlayButton.textContent = '||';  // Pause symbol
+    } else {
+        audioPlayer.pause();
+        pausePlayButton.textContent = '►';  // Play symbol
+    }
+});
