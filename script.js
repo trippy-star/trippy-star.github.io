@@ -49,40 +49,44 @@ const audioPlayer = document.getElementById('audio-player');
 const pausePlayButton = document.getElementById('pause-play-button');
 let isFading = false;
 
-function fadeAudio(volume, duration, callback) {
-    let startVolume = audioPlayer.volume;
-    let step = (volume - startVolume) / (duration / 10);
+function fadeAudio(volume, duration) {
+    return new Promise((resolve) => {
+        let startVolume = audioPlayer.volume;
+        let step = (volume - startVolume) / (duration / 10);
 
-    function fade() {
-        startVolume += step;
-        if ((step > 0 && startVolume >= volume) || (step < 0 && startVolume <= volume)) {
-            audioPlayer.volume = volume;
-            if (callback) callback();
-        } else {
-            audioPlayer.volume = startVolume;
-            setTimeout(fade, 10);
+        function fade() {
+            startVolume += step;
+            if ((step > 0 && startVolume >= volume) || (step < 0 && startVolume <= volume)) {
+                audioPlayer.volume = volume;
+                resolve();
+            } else {
+                audioPlayer.volume = startVolume;
+                setTimeout(fade, 10);
+            }
         }
-    }
 
-    fade();
+        fade();
+    });
 }
 
-pausePlayButton.addEventListener('click', () => {
+pausePlayButton.addEventListener('click', async () => {
     if (!isFading) {
         isFading = true;
         if (audioPlayer.paused) {
-            fadeAudio(1, 1000, () => {
+            // Ensure audio is loaded before playing
+            if (audioPlayer.readyState >= 2) {
+                await fadeAudio(1, 1000);
                 audioPlayer.play();
                 pausePlayButton.textContent = '||';
-                isFading = false;
-            });
+            } else {
+                audioPlayer.play();
+                pausePlayButton.textContent = '||';
+            }
         } else {
-            fadeAudio(0, 1000, () => {
-                audioPlayer.pause();
-                pausePlayButton.textContent = '►';
-                audioPlayer.volume = 1; // Reset volume for next play
-                isFading = false;
-            });
+            await fadeAudio(0, 1000);
+            audioPlayer.pause();
+            pausePlayButton.textContent = '►';
         }
+        isFading = false;
     }
 });
