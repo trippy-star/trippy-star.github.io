@@ -1,8 +1,11 @@
-const audioPlayer = document.getElementById('audio-player');
 const pausePlayButton = document.getElementById('pause-play-button');
 const volumeIcon = document.getElementById('volume-icon');
-const volumeFill = document.getElementById('volume-fill');
-const volumePercentage = document.getElementById('volume-percentage');
+const volumeBarContainer = document.querySelector('.volume-bar-container');
+const volumeBar = document.querySelector('.volume-bar');
+const volumeFill = document.querySelector('.volume-fill');
+const volumePercentage = document.querySelector('.volume-percentage');
+
+const audioPlayer = document.getElementById('background-music');
 let isFading = false;
 
 function updateVolumeDisplay() {
@@ -11,8 +14,19 @@ function updateVolumeDisplay() {
     volumePercentage.textContent = `${Math.round(volume)}%`;
 }
 
-volumeIcon.addEventListener('click', () => {
-    audioPlayer.volume = audioPlayer.volume === 0 ? 1 : 0;
+volumeIcon.addEventListener('mouseover', () => {
+    volumeBarContainer.style.display = 'flex';
+});
+
+volumeIcon.addEventListener('mouseout', () => {
+    volumeBarContainer.style.display = 'none';
+});
+
+volumeBar.addEventListener('click', (event) => {
+    const rect = volumeBar.getBoundingClientRect();
+    const offsetY = event.clientY - rect.top;
+    const newVolume = 1 - (offsetY / volumeBar.clientHeight);
+    audioPlayer.volume = Math.max(0, Math.min(newVolume, 1));
     updateVolumeDisplay();
 });
 
