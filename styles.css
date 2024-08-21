@@ -104,32 +104,35 @@ body {
     align-items: center;
     margin-top: 20px;
     border: 2px solid white;
-    padding: 10px;
+    padding: 10px; /* Adjust padding to add space inside */
     border-radius: 10px;
     background: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.3); /* Enhanced shadow for better visibility */
+    max-width: 700px; /* Increased width */
+    width: 100%; /* Responsive width */
 }
 
 .cover-image {
-    width: 100px;
-    height: 100px;
+    width: 120px; /* Standard size */
+    height: 120px; /* Standard size */
     border-radius: 10px;
     margin-right: 20px;
 }
 
 .media-controls {
     display: flex;
+    flex-direction: column; /* Stack controls vertically */
     align-items: center;
     position: relative;
 }
 
 #pause-play-button {
-    font-size: 1.5em;
+    font-size: 2em; /* Larger button */
     background: transparent;
     border: 2px solid #ffffff;
     color: #ffffff;
-    padding: 10px 20px;
-    border-radius: 5px;
+    padding: 15px 30px; /* Larger padding */
+    border-radius: 10px;
     cursor: pointer;
     transition: background 0.3s, color 0.3s;
 }
@@ -141,50 +144,57 @@ body {
 
 .volume-control {
     position: relative;
-    margin-left: 20px;
+    margin-top: 20px; /* Increased margin for better spacing */
 }
 
 .volume-icon {
-    width: 30px;
-    height: 30px;
+    width: 40px; /* Larger volume icon */
+    height: 40px; /* Larger volume icon */
     cursor: pointer;
 }
 
+.volume-bar-container {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10px;
+}
+
 .volume-bar {
-    width: 10px;
-    height: 100px;
+    width: 15px; /* Adjust width */
+    height: 120px; /* Adjust height */
     background: #ffffff;
-    border-radius: 5px;
+    border-radius: 10px;
     overflow: hidden;
     position: relative;
-    margin-top: 5px;
+    margin-left: 10px; /* Adjust margin for spacing */
 }
 
 .volume-fill {
     height: 100%;
     background: #ff5722;
     width: 100%;
-    transition: height 0.3s;
 }
 
 .volume-percentage {
     position: absolute;
     top: 50%;
-    right: -40px;
+    right: -70px; /* Adjusted position to fit larger size */
     transform: translateY(-50%) rotate(90deg);
     white-space: nowrap;
     color: #ffffff;
+    font-size: 1.2em; /* Larger text */
 }
 
-.volume-control:hover .volume-bar {
-    height: 150px; /* Increased height on hover */
+/* Show volume control on hover */
+.volume-icon:hover + .volume-bar-container {
+    display: flex;
 }
 
-.volume-control:hover .volume-percentage {
-    font-size: 1em; /* Adjust font size on hover */
-}
-
-/* Ensure the font is applied */
 @font-face {
     font-family: 'VCR_OSD_MONO';
     src: url('VCR_OSD_MONO_1.001.ttf') format('truetype');
