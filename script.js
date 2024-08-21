@@ -51,9 +51,9 @@ const pausePlayButton = document.getElementById('pause-play-button');
 pausePlayButton.addEventListener('click', () => {
     if (audioPlayer.paused) {
         audioPlayer.play();
-        pausePlayButton.textContent = '||';  // Pause symbol
+        pausePlayButton.textContent = '||';
     } else {
         audioPlayer.pause();
-        pausePlayButton.textContent = '►';  // Play symbol
+        pausePlayButton.textContent = '►';
     }
 });
