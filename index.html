@@ -5,12 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Trippy's Bio</title>
     <link rel="stylesheet" href="styles.css">
-    <style>
-        @font-face {
-            font-family: 'VCR_OSD_MONO';
-            src: url('VCR_OSD_MONO_1.001.ttf') format('truetype');
-        }
-    </style>
 </head>
 <body>
     <div id="particles-js"></div>
@@ -23,18 +17,32 @@
                 <img src="discord.png" alt="Discord Icon" class="discord-icon">
             </a>
         </div>
+
+        <!-- Media Player -->
         <div class="media-player">
-            <img src="https://i1.sndcdn.com/artworks-000640731220-n1lau4-t500x500.jpg" alt="Song Cover" class="cover-image">
+            <img src="https://i1.sndcdn.com/artworks-000640731220-n1lau4-t500x500.jpg" alt="Cover Image" class="cover-image">
             <div class="media-controls">
-                <button id="pause-play-button">►</button>
                 <div class="song-info">
                     <p class="song-title">6 Kiss (Feat. Juice WRLD & YNW Melly)</p>
                     <p class="song-artists">Trippie Redd, Juice WRLD, YNW Melly</p>
                 </div>
+                <div class="progress-container">
+                    <div class="progress-bar">
+                        <div class="progress" id="progress"></div>
+                    </div>
+                </div>
+                <div class="time">
+                    <span id="elapsed-time">0:00</span>
+                    <span id="total-time">-0:00</span>
+                </div>
             </div>
+            <button id="pause-play-button" class="control-button">||</button>
         </div>
+
+        <!-- Audio Element -->
+        <audio id="audio" src="6kiss.mp3" autoplay loop></audio>
     </div>
-    <audio id="background-music" src="6kiss.mp3" preload="auto"></audio>
+
     <script src="script.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
     <script>
